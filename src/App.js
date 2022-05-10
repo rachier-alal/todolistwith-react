@@ -1,23 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css'; 
+import { useState } from 'react';
+import { Button, FormControl, Input, InputLabel } from '@material-ui/core';
+import Todo from './components/Todo';
 
 function App() {
+  const [todos, setTodos ] = useState([
+    'Make a react firebase Project',
+    'Record a coding video'
+  ])
+  const[input, setInput] = useState('')
+  
+  const addTodo = e =>{
+    e.preventDefault()
+    setTodos([...todos, input])
+    setInput('')
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <h1>TODO React Firebase</h1>
+    <form>
+      <FormControl>
+        <InputLabel>Fuckin Win</InputLabel>
+        <Input value={input} onChange={e => setInput(e.target.value)}/>
+      </FormControl>
+      <Button type="submit" onClick={addTodo} variant="contained" 
+        color="primary" disabled={!input}>Add Todo</Button>
+    </form>
+    <ul>
+      
+      {todos.map(todo => <Todo todo={todo} />)}
+    </ul>
     </div>
   );
 }
